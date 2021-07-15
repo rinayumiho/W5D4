@@ -13,13 +13,21 @@
 require 'securerandom'
 
 class ShortenedUrl < ApplicationRecord
+
+    def self.random_code(str)
+
+        SecureRandom.urlsafe_base64(str)
+    end
+
+    def initialize
+        short_url = ShortenedUrl.random_code(long_url)
+    end
+    
     validates :short_url, presence: true
     validates :long_url, presence: true
     validates :user_id, presence: true
 
     # include SecureRandom
 
-    def random_code
-        short_url = SecureRandom.urlsafe_base64(long_url)
-    end
+    
 end
